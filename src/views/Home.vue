@@ -1,31 +1,20 @@
 <template>
   <div class="container-sm">
-    <b-overlay :show="loading" no-wrap>    </b-overlay>
-
+    <b-overlay :show="loading" no-wrap></b-overlay>
       <div class="row mt-4" v-lazy-container="{ selector: 'img' }">
-        <!-- border -->
-        <div class=" col-md-2 col-sm-3 col-6 mb-2 px-1 bg-ligh item-content " v-for="(img,index) in images" v-bind:key="index"  @click="deleteItem(index)">
-              <div class=" d-flex justify-content-center align-items-center box" >
-                <img :data-src="img.url"  class="lazy-img">
-                  <span class="position-absolute d-none delete-item">
-               <div >
-                  <div class="d-flex justify-content-center align-items-center">
-                    <b-icon icon="trash" variant="dark" font-scale="2"></b-icon> 
-                  </div>
-                  <div class="font16 text-dark fw-bold">Eliminar</div>
-               </div>
-              </span>
-              </div>
-            
-        </div>
+        <div class=" col-md-2 col-sm-3 col-6 mb-2 px-1 bg-ligh item-content"  v-for="(img,index) in images" v-bind:key="index"  @click="deleteItem(index)">
+          <contentImage :src="img.url"></contentImage>
+        </div>      
       </div>
   </div>
 </template>
 
 <script>
-
+import contentImage from "@/components/contentImage.vue"
+import { setTimeout } from 'timers';
 export default {
   components: {
+    contentImage
   },
   data(){
     return {
@@ -47,21 +36,20 @@ export default {
         })
         .catch(()=>{
             this.loading = false;
-
         })
     },
     deleteItem(index){
       this.loading = true;
       this.images.splice(index,1);
-      this.loading = false;
+      setTimeout(() =>{
+        this.loading = false;
+      },1000)
     }
   }
 };
 </script>
 <style>
-/* .box{
-  min-height:250px;
-} */
+
 .item-content{
   cursor: pointer;
 
