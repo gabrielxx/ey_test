@@ -38,7 +38,7 @@ export default {
   methods : {
      onLoadImages(){
       this.loading = true;
-      this.$axios("http://jsonplaceholder.typicode.com/photos")
+      this.$axios("https://jsonplaceholder.typicode.com/photos")
         .then((response) => {
             this.images = response.data;
             this.loading = false;
