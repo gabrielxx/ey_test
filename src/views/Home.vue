@@ -23,13 +23,15 @@
 </template>
 
 <script>
+
 export default {
   components: {
   },
   data(){
     return {
       images : [],
-      loading : false
+      loading : false,
+      endpoint :  process.env.VUE_APP_IMAGES_API
     }
   },
   created(){
@@ -38,7 +40,7 @@ export default {
   methods : {
      onLoadImages(){
       this.loading = true;
-      this.$axios("https://jsonplaceholder.typicode.com/photos")
+      this.$axios(this.endpoint + "/photos")
         .then((response) => {
             this.images = response.data;
             this.loading = false;
